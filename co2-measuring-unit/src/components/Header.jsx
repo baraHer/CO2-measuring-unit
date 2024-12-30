@@ -4,7 +4,7 @@ import { IoHomeOutline } from "react-icons/io5";
 
 const Header = () => {
     return (
-        <div className='header'>
+        <div>
             <Link to='/'><IoHomeOutline /></Link>
             <Link to='/data'>Naměřená data</Link>
             <Link to='/predpoved'>Předpověď</Link>
