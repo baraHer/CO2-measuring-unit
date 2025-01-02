@@ -1,13 +1,14 @@
 .nav-links-box {
     display: flex;
-    gap: 2rem;
+    margin-left: calc(5% - 24px);
 }
 
 .nav-links-box > a {
-    font-size: 2rem;
+    font-size: 1.5rem;
     text-decoration: none;
+    padding: 12px 24px;
 }
 
-.nav-links-box > a:focus {
+.nav-links-box > a:focus, .nav-links-box > a:visited {
     color: antiquewhite;
 }

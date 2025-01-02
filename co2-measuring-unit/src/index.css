@@ -26,3 +26,25 @@ code {
 section {
   padding: 0 5%;
 }
+
+button {
+  color: #ECECEA;
+  background-color: #213A3D;
+  font-size: 1rem;
+  font-weight: bold;
+  border-radius: 16px;
+  padding: 16px;
+  border: none;
+}
+
+.error-page, .provisional {
+  height: 600px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.error-page > img, .provisional > img {
+  width: 320px;
+}
