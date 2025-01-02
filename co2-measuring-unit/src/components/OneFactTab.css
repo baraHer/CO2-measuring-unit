@@ -1,5 +1,6 @@
 .img-fact-tab {
     width: 24rem;
+    height: min-content;
     margin: 16px;
     border-radius: 16px;
 }

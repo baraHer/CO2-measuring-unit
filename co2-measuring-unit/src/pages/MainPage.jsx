@@ -1,5 +1,5 @@
 import './MainPage.css'
-import intoductionImg from '../img/introdruction.png'
+import introductionImg from '../img/introduction.png'
 
 import FactTabs from "../components/FactTabs";
 import AppIntroduction from "../components/AppIntroduction";
@@ -16,8 +16,11 @@ const MainPage = () => {
 
     return (
         <div>
-            <img src={intoductionImg} alt='krajina'/>
-            <p>{slogans[randomIndex]}</p>
+            <div className='banner'>
+                <img src={introductionImg} alt='krajina'/>
+                <h1>Klimastanice</h1>
+                <p className='slogan'>{slogans[randomIndex]}</p>
+            </div>
             <AppIntroduction />
             <FactTabs />
         </div>

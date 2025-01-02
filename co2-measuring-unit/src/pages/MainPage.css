@@ -1,3 +1,30 @@
 img {
     width: 100%;
 }
+
+h1 {
+    position: absolute;
+    top: 80px;
+    font-size: 2.5rem;
+    font-weight: bolder;
+    padding: 0 3.5%;
+    color: #232323;
+}
+
+.slogan {
+    width: fit-content;
+    position: relative;
+    top: -80px;
+    align-self: center;
+    margin: 0 3.5%;
+    padding: 8px;
+    border-radius: 8px;
+    background-color: #ECECEA;
+    color: #232323;
+    font-weight: 550;
+}
+
+.banner {
+    display: flex;
+    flex-direction: column;
+}
