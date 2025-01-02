@@ -1,0 +1,9 @@
+.img-fact-tab {
+    width: 24rem;
+    margin: 16px;
+    border-radius: 16px;
+}
+
+.fact-tab-box {
+    display: flex;
+}

@@ -1,7 +1,7 @@
 const ClimateDataPage = () => {
     return (
         <div>
-
+            Ve vývoji!
         </div>
     );
 };

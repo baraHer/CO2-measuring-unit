@@ -1,10 +1,11 @@
+import './AppIntroduction.css'
 import allFeatures from "../appIntroduction";
 
 const AppIntroduction = () => {
     return (
-        <div>
+        <section>
             <h2>Co Klimastanice umí?</h2>
-            <div>
+            <div className='features-block'>
                 {
                     allFeatures.map( (feature, index) => {
                         const {title, text, image, description} = feature
@@ -17,7 +18,7 @@ const AppIntroduction = () => {
                     })
                 }
             </div>
-        </div>
+        </section>
     );
 };
 

@@ -1,3 +1,6 @@
+import './MainPage.css'
+import intoductionImg from '../img/introdruction.png'
+
 import FactTabs from "../components/FactTabs";
 import AppIntroduction from "../components/AppIntroduction";
 const MainPage = () => {
@@ -13,6 +16,7 @@ const MainPage = () => {
 
     return (
         <div>
+            <img src={intoductionImg} alt='krajina'/>
             <p>{slogans[randomIndex]}</p>
             <AppIntroduction />
             <FactTabs />

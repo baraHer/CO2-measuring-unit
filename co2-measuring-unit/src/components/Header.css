@@ -1,0 +1,13 @@
+.nav-links-box {
+    display: flex;
+    gap: 2rem;
+}
+
+.nav-links-box > a {
+    font-size: 2rem;
+    text-decoration: none;
+}
+
+.nav-links-box > a:focus {
+    color: antiquewhite;
+}

@@ -1,3 +1,4 @@
+import './FactTabs.css'
 import allFacts from "../co2facts";
 
 import {useState} from "react";
