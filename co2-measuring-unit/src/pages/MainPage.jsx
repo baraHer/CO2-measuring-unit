@@ -1,8 +1,9 @@
 import './MainPage.css'
-import introductionImg from '../img/introduction.png'
+import introductionImg from '../img/introduction.webp'
 
 import FactTabs from "../components/FactTabs";
 import AppIntroduction from "../components/AppIntroduction";
+import Footer from "../components/Footer";
 const MainPage = () => {
     const slogans = [
         'Víte, že lidský dech je hlavním zdrojem CO2 v interiéru?',
@@ -23,6 +24,7 @@ const MainPage = () => {
             </div>
             <AppIntroduction />
             <FactTabs />
+            <Footer />
         </div>
     );
 };

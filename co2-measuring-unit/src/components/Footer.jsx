@@ -1,8 +1,8 @@
 const Footer = () => {
     return (
-        <div>
-
-        </div>
+        <footer>
+            &copy; Barbora Herynková, 2025
+        </footer>
     );
 };
 

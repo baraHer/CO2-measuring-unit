@@ -1,4 +1,4 @@
-import imgDevelopment from '../img/development.png'
+import imgDevelopment from '../img/development.webp'
 
 const ClimateDataPage = () => {
     return (

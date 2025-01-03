@@ -1,6 +1,6 @@
-import imgMeasurement from './img/measurement.jpg'
-import imgEffects from './img/effects.jpg'
-import imgAtmosphere from './img/atmosphere.jpg'
+import imgMeasurement from './img/measurement.webp'
+import imgEffects from './img/effects.webp'
+import imgAtmosphere from './img/atmosphere.webp'
 
 const allFacts = [
     {

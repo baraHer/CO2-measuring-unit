@@ -8,7 +8,6 @@ import ClimateDataPage from "./pages/ClimateDataPage";
 import ErrorPage from "./pages/ErrorPage";
 
 import Header from "./components/Header";
-import Footer from "./components/Footer";
 
 function App() {
   return (
@@ -21,7 +20,6 @@ function App() {
                   <Route path='/predpoved' element={<ForecastPage />} />
                   <Route path='*' element={<ErrorPage />} />
               </Routes>
-              <Footer />
 
         </div>
     </BrowserRouter>

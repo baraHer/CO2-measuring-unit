@@ -46,3 +46,9 @@ a:hover {
 .error-page > img, .provisional > img {
   width: 320px;
 }
+
+footer {
+  background-color: rgba(13, 21, 24, 0.71);
+  padding: 12px;
+  text-align: center;
+}

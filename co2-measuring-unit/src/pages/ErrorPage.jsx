@@ -1,4 +1,4 @@
-import img404 from '../img/404.png'
+import img404 from '../img/404.webp'
 
 import { Link } from "react-router-dom"
 const ErrorPage = () => {
