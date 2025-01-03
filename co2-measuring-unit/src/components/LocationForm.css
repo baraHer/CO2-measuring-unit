@@ -2,8 +2,28 @@ form {
     margin: 80px 5%;
     display: flex;
     flex-direction: column;
+    gap: 16px;
 }
 
 form > * {
     width: fit-content;
+}
+
+.autofill-box {
+    display: flex;
+    flex-direction: column;
+}
+
+input, .autofill-box > button {
+    font-size: 0.8rem;
+    font-weight: normal;
+    padding: 6px;
+    border: 1px solid #ECECEA;
+    border-radius: 0;
+    background-color: #213A3D;
+    color: #ECECEA;
+}
+
+.autofill-box > button:hover {
+    background-color: #2E4E50;
 }

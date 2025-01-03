@@ -39,6 +39,10 @@ const LocationForm = () => {
         await getWeatherData(location[0])
     }
 
+    const submitDirect = async (suggestedCity) => {
+        await getWeatherData(suggestedCity)
+    }
+
     const handleLocationInputChange = async (event) => {
         const newLocation = event.target.value;
         setLocationInput(newLocation);
@@ -55,7 +59,7 @@ const LocationForm = () => {
 
     return (
         <div>
-            <form onSubmit={submit}>
+            <form>
                 <h3>Zadej obec:</h3>
                 <input
                     name='obec'
@@ -64,14 +68,16 @@ const LocationForm = () => {
                     placeholder='př. Teplice'
                     ref={cityRef}
                 />
-                <button>Odeslat</button>
+                <div className='autofill-box'>
+                    {
+                        locationAutofill.map( (suggestedCity, index) => {
+                            const {name, region, country, id} = suggestedCity
+                            return <button type='button' onClick={ () => submitDirect(suggestedCity)} key={index}>{`${name}, ${region}, ${country}`}</button>
+                        })
+                    }
+                </div>
+                <button onClick={submit}>Odeslat</button>
             </form>
-            {
-                locationAutofill.map( (suggestedCity, index) => {
-                    const {name, region, country} = suggestedCity
-                    return <button key={index}>{`${name}, ${region}, ${country}`}</button>
-                })
-            }
         </div>
     );
 };
