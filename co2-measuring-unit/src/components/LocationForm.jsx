@@ -27,20 +27,30 @@ const LocationForm = () => {
         setWeatherData(data)
     }
 
-    const submit = async (event) => {
-        event.preventDefault()
-
+    const getLocation = async () => {
         const apiUrlLocation =`${API_BASE_URL}/search.json?key=${API_KEY}&q=${locationInput}&lang=cs`
         const responseLocation = await fetch(apiUrlLocation)
-        const dataLocation = await responseLocation.json()
-        const location = dataLocation[0]
-
-        await getWeatherData(location)
+        return await responseLocation.json()
     }
 
-    const handleLocationInputChange = (event) => {
+    const submit = async (event) => {
+        event.preventDefault()
+        const location = await getLocation()
+        await getWeatherData(location[0])
+    }
+
+    const handleLocationInputChange = async (event) => {
         const newLocation = event.target.value;
         setLocationInput(newLocation);
+        if (newLocation.length > 1) {
+            const possibleLocations = await getLocation()
+            let suggestedCities = []
+            for (let i = 0; i < possibleLocations.length && i < 3; i++) {
+                suggestedCities.push(possibleLocations[i])
+                setLocationAutofill(suggestedCities)
+                console.log(suggestedCities)
+            }
+        }
     }
 
     return (
