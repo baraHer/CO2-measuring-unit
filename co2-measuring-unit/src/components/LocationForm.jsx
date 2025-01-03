@@ -66,6 +66,12 @@ const LocationForm = () => {
                 />
                 <button>Odeslat</button>
             </form>
+            {
+                locationAutofill.map( (suggestedCity, index) => {
+                    const {name, region, country} = suggestedCity
+                    return <button key={index}>{`${name}, ${region}, ${country}`}</button>
+                })
+            }
         </div>
     );
 };
