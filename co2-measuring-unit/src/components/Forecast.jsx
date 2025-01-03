@@ -9,7 +9,7 @@ import wind_kph_icon from '../img/weather-icons/wind_kph.svg';
 
 import ForecastDataBox from "./ForecastDataBox";
 
-const Forecast = ({weatherData}) => {
+const Forecast = ({setWeatherData, weatherData}) => {
     const {location, current, forecast} = weatherData
 
     const {name, country, localtime} = location
@@ -31,7 +31,7 @@ const Forecast = ({weatherData}) => {
     };
 
     return (
-        <div className='full-forecast-box'>
+        <section className='full-forecast-box'>
             <h2>{name + ', ' + country}</h2>
             <img className='local-time-icon' src={localtime_icon} alt='Lokální čas ikonka'/>
             <h4>Lokální čas:</h4>
@@ -45,7 +45,8 @@ const Forecast = ({weatherData}) => {
                     })
                 }
             </div>
-        </div>
+            <button onClick={ () => setWeatherData(null) }>Vyber novou lokaci!</button>
+        </section>
     );
 };
 

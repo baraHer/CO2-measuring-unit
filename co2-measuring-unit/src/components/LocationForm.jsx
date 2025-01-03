@@ -15,6 +15,7 @@ const LocationForm = () => {
     const [locationAutofill, setLocationAutofill] = useState([])
     const [locationInput, setLocationInput] = useState('')
     const [weatherData, setWeatherData] = useState(null)
+    const [inputWarning, setInputWarning] = useState(false)
 
     const API_BASE_URL = 'http://api.weatherapi.com/v1'
     const API_KEY = '0e813ae11e09437e95934223250301'
@@ -29,6 +30,7 @@ const LocationForm = () => {
         }
         catch (error) {
             console.error('Caught error in fetching weather api: ' + error)
+            setInputWarning(true)
         }
     }
 
@@ -58,6 +60,7 @@ const LocationForm = () => {
     }
 
     const handleLocationInputChange = async (event) => {
+        setInputWarning(false)
         const newLocation = event.target.value;
         setLocationInput(newLocation);
         if (newLocation.length > 2) {
@@ -79,7 +82,9 @@ const LocationForm = () => {
 
     return (
         <div>
-            <form>
+            {weatherData ?
+            (<Forecast setWeatherData={setWeatherData} weatherData={weatherData}/>) :
+            (<form>
                 <h3>Zadej obec:</h3>
                 <input
                     name='obec'
@@ -96,11 +101,11 @@ const LocationForm = () => {
                         })
                     }
                 </div>
+                {inputWarning && <p>Zadej opravdové místo!</p>}
                 <button className='submit-btn' onClick={submit} disabled={locationInput.length < 3}>
                     {locationInput.length < 3 ? 'Zadej alespoň 3 znaky!' : 'Zobraz předpověď!'}
                 </button>
-            </form>
-            {weatherData && <Forecast weatherData={weatherData}/>}
+            </form>)}
         </div>
     );
 };
