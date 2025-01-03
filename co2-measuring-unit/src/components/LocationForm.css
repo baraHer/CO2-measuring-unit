@@ -1,0 +1,9 @@
+form {
+    margin: 80px 5%;
+    display: flex;
+    flex-direction: column;
+}
+
+form > * {
+    width: fit-content;
+}
