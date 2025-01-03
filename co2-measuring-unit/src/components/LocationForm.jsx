@@ -1,6 +1,8 @@
 import './LocationForm.css'
 
-import {useEffect, useRef, useState} from "react";
+import {useEffect, useRef, useState} from "react"
+
+import Forecast from "./Forecast";
 
 const LocationForm = () => {
 
@@ -17,12 +19,6 @@ const LocationForm = () => {
     const API_BASE_URL = 'http://api.weatherapi.com/v1'
     const API_KEY = '0e813ae11e09437e95934223250301'
 
-    useEffect(() => {
-        if (weatherData) {
-            console.log(weatherData);
-        }
-    }, [weatherData]);
-
     const getWeatherData = async (location) => {
         try {
             const apiUrlWeather = `${API_BASE_URL}/forecast.json?key=${API_KEY}&q=id:${location.id}&lang=cs`
@@ -32,18 +28,22 @@ const LocationForm = () => {
             setWeatherData(data)
         }
         catch (error) {
-            console.log(error)
+            console.error('Caught error in fetching weather api: ' + error)
         }
     }
 
     const getLocation = async () => {
+        if (!locationInput || locationInput.length < 3) {
+            console.error('Unexpected location data')
+            return []
+        }
         const apiUrlLocation =`${API_BASE_URL}/search.json?key=${API_KEY}&q=${locationInput}&lang=cs`
         try {
             const responseLocation = await fetch(apiUrlLocation)
             return await responseLocation.json()
         }
         catch (error) {
-            console.error(error)
+            console.error('Caught error in fetching location api:' + error)
         }
     }
 
@@ -61,9 +61,16 @@ const LocationForm = () => {
         const newLocation = event.target.value;
         setLocationInput(newLocation);
         if (newLocation.length > 2) {
-            const possibleLocations = await getLocation()
-            const suggestedCities = possibleLocations.slice(0, 3)
-            setLocationAutofill(suggestedCities)
+            try {
+                const possibleLocations = await getLocation()
+                if (possibleLocations.length > 0) {
+                    const suggestedCities = possibleLocations.slice(0,3)
+                    setLocationAutofill(suggestedCities)
+                }
+            }
+            catch (error) {
+                console.error('Caught error in fill suggestions: ' + error)
+            }
         }
         else {
             setLocationAutofill([])
@@ -90,10 +97,10 @@ const LocationForm = () => {
                     }
                 </div>
                 <button className='submit-btn' onClick={submit} disabled={locationInput.length < 3}>
-                    {locationInput.length < 3 || 'Zobraz předpověď!'}
-                    {locationInput.length < 3 && 'Zadej alespoň 3 znaky!'}
+                    {locationInput.length < 3 ? 'Zadej alespoň 3 znaky!' : 'Zobraz předpověď!'}
                 </button>
             </form>
+            {weatherData && <Forecast weatherData={weatherData}/>}
         </div>
     );
 };
