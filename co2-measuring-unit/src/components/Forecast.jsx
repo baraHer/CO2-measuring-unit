@@ -34,7 +34,7 @@ const Forecast = ({setWeatherData, weatherData}) => {
         <section className='full-forecast-box'>
             <h2>{name + ', ' + country}</h2>
             <img className='local-time-icon' src={localtime_icon} alt='Lokální čas ikonka'/>
-            <h4>Lokální čas:</h4>
+            <h4>Poslední aktualizace (lokální čas):</h4>
             <h3>{formatDateTime(localtime)}</h3>
             <h3>{condition.text}</h3>
             <div className='weather-attributes-box'>

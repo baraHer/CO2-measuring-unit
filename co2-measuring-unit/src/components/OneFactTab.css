@@ -12,3 +12,10 @@
     background-color: #213A3D;
     border-radius: 16px;
 }
+
+@media (max-width: 1200px) {
+    .fact-tab-box {
+        flex-direction: column;
+        align-items: center;
+    }
+}
