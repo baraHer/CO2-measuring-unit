@@ -2,7 +2,6 @@ form {
     margin: 80px 5%;
     display: flex;
     flex-direction: column;
-    gap: 16px;
 }
 
 form > * {
@@ -14,8 +13,12 @@ form > * {
     flex-direction: column;
 }
 
+input::placeholder{
+
+}
+
 input, .autofill-box > button {
-    font-size: 0.8rem;
+    font-size: 1rem;
     font-weight: normal;
     padding: 6px;
     border: 1px solid #ECECEA;
@@ -24,6 +27,19 @@ input, .autofill-box > button {
     color: #ECECEA;
 }
 
-.autofill-box > button:hover {
-    background-color: #2E4E50;
+.autofill-box > button:hover, .submit-btn:hover {
+    background-color: #234548;
+}
+
+.submit-btn {
+    margin-top: 24px;
+    padding: 12px;
+    border: 2px solid #ECECEA;
+    font-size: 0.9rem;
+}
+
+.submit-btn:disabled {
+    background-color: #213A3D;
+    color: #31796e;
+    border: #31796e;
 }
