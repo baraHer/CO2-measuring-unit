@@ -35,3 +35,11 @@
 .forecast-data-box > * {
     margin: 8px 0;
 }
+
+.local-time-icon {
+    width: 60px;
+}
+
+h4 {
+    margin: 12px 0;
+}

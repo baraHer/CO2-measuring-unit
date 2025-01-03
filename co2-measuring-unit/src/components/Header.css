@@ -16,3 +16,12 @@
 .nav-links-box > a:focus, .nav-links-box > a:visited {
     color: antiquewhite;
 }
+
+.nav-links-box > a:hover {
+    text-decoration: underline;
+}
+
+.active-link {
+    background-color: rgba(33, 57, 61, 0.71);
+    border-radius: 16px;
+}

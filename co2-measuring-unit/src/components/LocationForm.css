@@ -13,10 +13,6 @@ form > * {
     flex-direction: column;
 }
 
-input::placeholder{
-
-}
-
 input, .autofill-box > button {
     font-size: 1rem;
     font-weight: normal;

@@ -26,7 +26,12 @@ button {
   border: none;
 }
 
-button:hover, a:hover {
+button:hover {
+  cursor: pointer;
+  background-color: rgba(13, 21, 24, 0.71);
+}
+
+a:hover {
   cursor: pointer;
 }
 

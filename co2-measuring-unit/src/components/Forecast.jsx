@@ -33,13 +33,15 @@ const Forecast = ({weatherData}) => {
     return (
         <div className='full-forecast-box'>
             <h2>{name + ', ' + country}</h2>
+            <img className='local-time-icon' src={localtime_icon} alt='Lokální čas ikonka'/>
+            <h4>Lokální čas:</h4>
             <h3>{formatDateTime(localtime)}</h3>
-            <h3>Počasí dnes: {condition.text}</h3>
+            <h3>{condition.text}</h3>
             <div className='weather-attributes-box'>
                 {
-                    weatherAttributes.map( (attribute, index) => {
+                    weatherAttributes.map((attribute, index) => {
                         const {name, data, unit, icon} = attribute
-                        return <ForecastDataBox key={index} header={name} data={data+unit} icon={icon}/>
+                        return <ForecastDataBox key={index} header={name} data={data + unit} icon={icon}/>
                     })
                 }
             </div>
