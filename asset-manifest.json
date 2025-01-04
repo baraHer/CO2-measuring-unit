@@ -1,0 +1,31 @@
+{
+  "files": {
+    "main.css": "/CO2-measuring-unit/static/css/main.bde80e08.css",
+    "main.js": "/CO2-measuring-unit/static/js/main.98434be2.js",
+    "static/js/151.79d0a542.chunk.js": "/CO2-measuring-unit/static/js/151.79d0a542.chunk.js",
+    "static/media/introduction.webp": "/CO2-measuring-unit/static/media/introduction.45bae89f48a7cc614f3d.webp",
+    "static/media/atmosphere.webp": "/CO2-measuring-unit/static/media/atmosphere.8420862522b6182c8fad.webp",
+    "static/media/measurement.webp": "/CO2-measuring-unit/static/media/measurement.634e65a9bed146f3a669.webp",
+    "static/media/development.webp": "/CO2-measuring-unit/static/media/development.e41adc7b254cc3d17a9b.webp",
+    "static/media/effects.webp": "/CO2-measuring-unit/static/media/effects.03a63de5814c77a67795.webp",
+    "static/media/404.webp": "/CO2-measuring-unit/static/media/404.69c6feeb41df052dc621.webp",
+    "static/media/feature2.svg": "/CO2-measuring-unit/static/media/feature2.acc7ee02bd77232477714a05f49db9b2.svg",
+    "static/media/feelslike_c.svg": "/CO2-measuring-unit/static/media/feelslike_c.4d50407e5737e9d9c29f441ff2e886a9.svg",
+    "static/media/precip_mm.svg": "/CO2-measuring-unit/static/media/precip_mm.89d1201933792f5cb2cb59257a64bd6d.svg",
+    "static/media/pressure_mb.svg": "/CO2-measuring-unit/static/media/pressure_mb.dfe497cbfdbfb111bf9bd9c99c6e8798.svg",
+    "static/media/feature1.svg": "/CO2-measuring-unit/static/media/feature1.ea64bb74e452337e138a5ec7bc3c4278.svg",
+    "static/media/wind_kph.svg": "/CO2-measuring-unit/static/media/wind_kph.d6e2fa58a2f3958511a0321c86ebdb9d.svg",
+    "static/media/humidity.svg": "/CO2-measuring-unit/static/media/humidity.41b00990c51a4514d2949f696e66ae89.svg",
+    "static/media/feature3.svg": "/CO2-measuring-unit/static/media/feature3.7e8c8528b0fc9de69825b44b2735c900.svg",
+    "static/media/localtime.svg": "/CO2-measuring-unit/static/media/localtime.b74cc5daefac781f89e1e094a3366856.svg",
+    "static/media/temp_c.svg": "/CO2-measuring-unit/static/media/temp_c.fe06278341124d363f9769f8d8d8fcc2.svg",
+    "index.html": "/CO2-measuring-unit/index.html",
+    "main.bde80e08.css.map": "/CO2-measuring-unit/static/css/main.bde80e08.css.map",
+    "main.98434be2.js.map": "/CO2-measuring-unit/static/js/main.98434be2.js.map",
+    "151.79d0a542.chunk.js.map": "/CO2-measuring-unit/static/js/151.79d0a542.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.bde80e08.css",
+    "static/js/main.98434be2.js"
+  ]
+}

@@ -1,8 +1,0 @@
-.fact-tab-btns {
-    display: flex;
-    gap: 16px;
-}
-
-.active-tab-btn {
-    background-color: rgba(13, 21, 24, 0.71);
-}
