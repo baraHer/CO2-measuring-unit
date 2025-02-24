@@ -112,7 +112,7 @@ void loop() {
         Serial.println(errorMessage);
         return;
     }
-    displayData(0, co2Concentration);
     displayData(1, temperature);
     displayData(2, relativeHumidity);
+    displayData(0, co2Concentration);
 }
