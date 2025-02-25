@@ -30,6 +30,17 @@ const Forecast = ({setWeatherData, weatherData}) => {
         return `${time} ${day}.${month}.${year}`;
     };
 
+    const {forecastday} = forecast;
+
+    const {
+        maxtemp_c,
+        mintemp_c,
+        avgtemp_c,
+        maxwind_kph,
+        totalprecip_mm,
+        daily_chance_of_rain,
+    } = forecastday[0].day;
+
     return (
         <section className='full-forecast-box'>
             <h2>{name + ', ' + country}</h2>
@@ -45,7 +56,13 @@ const Forecast = ({setWeatherData, weatherData}) => {
                     })
                 }
             </div>
-            <button onClick={ () => setWeatherData(null) }>Vyber novou lokaci!</button>
+            <div className={'day-forecast'}>
+                <div>Denní teplota: min {mintemp_c} °C, max {maxtemp_c} °C, průměrná {avgtemp_c} °C</div>
+                <div>Maximální rychlost větru: {maxwind_kph} km/h</div>
+                <div>Očekávané srážky: {totalprecip_mm} mm</div>
+                <div>Pravděpodobnost deště: {daily_chance_of_rain} %</div>
+            </div>
+            <button onClick={() => setWeatherData(null) }>Vyber novou lokaci!</button>
         </section>
     );
 };

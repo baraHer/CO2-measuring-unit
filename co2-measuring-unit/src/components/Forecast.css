@@ -44,3 +44,11 @@
 h4 {
     margin: 12px 0;
 }
+
+.day-forecast {
+    padding: 16px;
+}
+
+.day-forecast > div {
+    padding: 8px 0;
+}
