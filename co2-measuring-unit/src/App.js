@@ -18,6 +18,7 @@ function App() {
               <Header />
               <Routes>
                   <Route path='/' element={<MainPage />} />
+                  <Route path='/CO2-measuring-unit' element={<MainPage />} />
                   <Route path='/data' element={<ClimateDataPage />} />
                   <Route path='/predpoved' element={<ForecastPage />} />
                   <Route path='*' element={<ErrorPage />} />
