@@ -53,23 +53,26 @@ const ClimateDataPage = () => {
     const mostRecentData = climateData[climateData.length - 1];
 
     return (
-        <div>
+        <div className='climate-data-container'>
             {mostRecentData && (
                 <div className="recent-data">
                     <h2>Nejnovější data</h2>
-                    <div>
-                        <h3>{formatDate(mostRecentData.datetime)}</h3>
-                        <p><img className='data-icon' alt='ikonka co2' src={carbon_icon}/> {mostRecentData.carbon} ppm
+                    <h3>{formatDate(mostRecentData.datetime)}</h3>
+                    <div className='recent-data-box'>
+                        <img className='data-icon' alt='ikonka co2' src={carbon_icon}/>
+                        <p>{mostRecentData.carbon} ppm
                         </p>
-                        <p><img className='data-icon' alt='ikonka teploty'
-                                src={temp_c_icon}/> {mostRecentData.temperature}°C</p>
-                        <p><img className='data-icon' alt='ikonka vlhkosti'
-                                src={humidity_icon}/> {mostRecentData.humidity}%</p>
+                        <img className='data-icon' alt='ikonka teploty'
+                             src={temp_c_icon}/>
+                        <p>{mostRecentData.temperature}°C</p>
+                        <img className='data-icon' alt='ikonka vlhkosti'
+                             src={humidity_icon}/>
+                        <p>{mostRecentData.humidity}%</p>
                     </div>
                 </div>
             )}
             <ResponsiveContainer width="85%" height={400}>
-                <LineChart data={climateData}>
+            <LineChart data={climateData}>
                     <CartesianGrid strokeDasharray="3 3"/>
                     <XAxis dataKey="datetime" textAnchor="end" stroke="#CCCCCC" tickFormatter={formatDateNoWeekday}/>
                     <YAxis yAxisId="left" domain={[0, 2000]} stroke="#CCCCCC"/>
@@ -84,7 +87,7 @@ const ClimateDataPage = () => {
                              labelFormatter={(value) => formatDateNoWeekday(value)}/>
                     <Legend/>
 
-                    <Line yAxisId="left" dataKey="carbon" stroke="#FF5733" name="CO2 (ppm)"/>
+                    <Line yAxisId="left" dataKey="carbon" stroke="#FF5733" name="CO₂ (ppm)"/>
 
                     <Line yAxisId="right" dataKey="temperature" stroke="#33A1FF" name="Teplota (°C)"/>
 
@@ -93,19 +96,35 @@ const ClimateDataPage = () => {
             </ResponsiveContainer>
 
             <div>
-                <ul>
-                    {climateData.map((data, index) => (
-                        <li key={index}>
-                            <div>{formatDate(data.datetime)}</div>
+                <table style={{borderCollapse: 'separate', borderSpacing: '20px 4px'}}>
+                    <thead>
+                    <tr>
+                        <th>Datum</th>
+                        <th>
                             <img className='data-icon' alt='ikonka co2' src={carbon_icon}/>
-                            <div>Koncentrace {data.carbon} ppm</div>
+                            Koncentrace (ppm)
+                        </th>
+                        <th>
                             <img className='data-icon' alt='ikonka teploty' src={temp_c_icon}/>
-                            <div>Teplota {data.temperature}°C</div>
+                            Teplota (°C)
+                        </th>
+                        <th>
                             <img className='data-icon' alt='ikonka vlhkosti' src={humidity_icon}/>
-                            <div>Vlhkost {data.humidity}%</div>
-                        </li>
+                            Vlhkost (%)
+                        </th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {climateData.map((data, index) => (
+                        <tr key={index}>
+                            <td>{formatDate(data.datetime)}</td>
+                            <td>{data.carbon}</td>
+                            <td>{data.temperature}</td>
+                            <td>{data.humidity}</td>
+                        </tr>
                     ))}
-                </ul>
+                    </tbody>
+                </table>
             </div>
         </div>
     );
