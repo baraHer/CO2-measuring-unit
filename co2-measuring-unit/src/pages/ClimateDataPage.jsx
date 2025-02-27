@@ -11,6 +11,7 @@ import {
     Tooltip,
     Legend,
     ResponsiveContainer,
+    Label
 } from "recharts";
 
 import humidity_icon from '../img/weather-icons/humidity.svg';
@@ -74,9 +75,15 @@ const ClimateDataPage = () => {
             <ResponsiveContainer width="85%" height={400}>
             <LineChart data={climateData}>
                     <CartesianGrid strokeDasharray="3 3"/>
-                    <XAxis dataKey="datetime" textAnchor="end" stroke="#CCCCCC" tickFormatter={formatDateNoWeekday}/>
-                    <YAxis yAxisId="left" domain={[0, 2000]} stroke="#CCCCCC"/>
-                    <YAxis yAxisId="right" orientation="right" domain={[0, 100]} stroke="#CCCCCC"/>
+                    <XAxis dataKey="datetime" textAnchor="end" stroke="#CCCCCC" tickFormatter={formatDateNoWeekday}>
+                        <Label value="Datum a čas" offset={-10} position="insideBottomRight" style={{ fill: '#CCCCCC', fontSize: '12px', fontWeight: 'bold' }} />
+                    </XAxis>
+                    <YAxis yAxisId="left" domain={[0, 2000]} stroke="#CCCCCC">
+                        <Label value="CO₂ (ppm)" angle={-90} dx={-30} position="center" style={{ fill: '#CCCCCC', fontSize: '12px', fontWeight: 'bold' }} />
+                    </YAxis>
+                    <YAxis yAxisId="right" orientation="right" domain={[0, 100]} stroke="#CCCCCC">
+                        <Label value="Teplota (°C) / Vlhkost (%)" angle={270} position="center" dx={20} style={{ fill: '#CCCCCC', fontSize: '12px', fontWeight: 'bold' }} />
+                    </YAxis>
                     <Tooltip contentStyle={{
                         backgroundColor: "#222",
                         borderRadius: "8px",
