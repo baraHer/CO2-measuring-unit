@@ -3,6 +3,20 @@
     padding: 8px;
 }
 
+.label-icon {
+    width: 40px;
+    padding: 0;
+}
+
+.label-text {
+    margin: 6px 0;
+    font-size: 1rem;
+}
+
+.label-date {
+    margin-bottom: -20px;
+}
+
 .recent-data > * {
     text-align: center;
 }
@@ -17,4 +31,8 @@
 .recent-data-box {
     display: flex;
     flex-direction: row;
+}
+
+table {
+    padding: 28px 0;
 }

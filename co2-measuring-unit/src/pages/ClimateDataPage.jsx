@@ -99,23 +99,23 @@ const ClimateDataPage = () => {
                 <table style={{borderCollapse: 'separate', borderSpacing: '20px 4px'}}>
                     <thead>
                     <tr>
-                        <th>Datum</th>
+                        <th><p className='label-date'>Datum</p></th>
                         <th>
-                            <img className='data-icon' alt='ikonka co2' src={carbon_icon}/>
-                            Koncentrace (ppm)
+                            <img className='data-icon label-icon' alt='ikonka co2' src={carbon_icon}/>
+                            <p className='label-text'>Koncentrace (ppm)</p>
                         </th>
                         <th>
-                            <img className='data-icon' alt='ikonka teploty' src={temp_c_icon}/>
-                            Teplota (°C)
+                        <img className='data-icon label-icon' alt='ikonka teploty' src={temp_c_icon}/>
+                            <p className='label-text'>Teplota (°C)</p>
                         </th>
                         <th>
-                            <img className='data-icon' alt='ikonka vlhkosti' src={humidity_icon}/>
-                            Vlhkost (%)
+                        <img className='data-icon label-icon' alt='ikonka vlhkosti' src={humidity_icon}/>
+                            <p className='label-text'>Vlhkost (%)</p>
                         </th>
                     </tr>
                     </thead>
                     <tbody>
-                    {climateData.map((data, index) => (
+                    {climateData.slice().reverse().map((data, index) => (
                         <tr key={index}>
                             <td>{formatDate(data.datetime)}</td>
                             <td>{data.carbon}</td>
