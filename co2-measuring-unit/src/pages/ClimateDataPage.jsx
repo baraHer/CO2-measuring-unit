@@ -55,6 +55,16 @@ const ClimateDataPage = () => {
             .catch((error) => console.error("Error fetching data:", error));
     }, []);
 
+    const getColorBasedOnValue = (value, thresholds) => {
+        if (value <= thresholds.green.max) {
+            return 'green';
+        } else if (value <= thresholds.orange.max) {
+            return 'orange';
+        } else {
+            return 'red';
+        }
+    };
+
     const handlePeriodChange = (event) => {
         setCurrentPage(1); // Reset to first page whenever the period changes
         setSelectedPeriod(event.target.value);
@@ -127,14 +137,17 @@ const ClimateDataPage = () => {
                     <h3>{formatDate(mostRecentData.datetime)}</h3>
                     <div className='recent-data-box'>
                         <img className='data-icon' alt='ikonka co2' src={carbon_icon}/>
-                        <p>{mostRecentData.carbon} ppm
+                        <p className={getColorBasedOnValue(mostRecentData.carbon, { green: { max: 1200 }, orange: { max: 1500 } })}>
+                            {mostRecentData.carbon} ppm
                         </p>
-                        <img className='data-icon' alt='ikonka teploty'
-                             src={temp_c_icon}/>
-                        <p>{mostRecentData.temperature}°C</p>
-                        <img className='data-icon' alt='ikonka vlhkosti'
-                             src={humidity_icon}/>
-                        <p>{mostRecentData.humidity}%</p>
+                        <img className='data-icon' alt='ikonka teploty' src={temp_c_icon}/>
+                        <p className={getColorBasedOnValue(mostRecentData.temperature, { green: { max: 24, min: 20 }, orange: { max: 25, min: 18 } })}>
+                            {mostRecentData.temperature}°C
+                        </p>
+                        <img className='data-icon' alt='ikonka vlhkosti' src={humidity_icon}/>
+                        <p className={getColorBasedOnValue(mostRecentData.humidity, { green: { max: 65, min: 30 }, orange: { max: 75, min: 20 } })}>
+                            {mostRecentData.humidity}%
+                        </p>
                     </div>
                 </div>
             )}

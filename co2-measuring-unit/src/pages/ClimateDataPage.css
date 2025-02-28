@@ -97,3 +97,18 @@ option:hover {
     color: #ccc;
     font-size: 14px;
 }
+
+.red, .orange, .green {
+    font-weight: bolder;
+}
+.red {
+    color: #ff2121;
+}
+
+.orange {
+    color: #ee7019;
+}
+
+.green {
+    color: #43d533;
+}
