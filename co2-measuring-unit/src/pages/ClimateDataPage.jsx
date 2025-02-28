@@ -84,9 +84,24 @@ const ClimateDataPage = () => {
         return filteredData;
     };
 
+    const calculateStats = (data, key) => {
+        if (data.length === 0) return { avg: '-', min: '-', max: '-' };
+
+        const sum = data.reduce((total, item) => total + item[key], 0);
+        const avg = (sum / data.length).toFixed(1);
+        const min = Math.min(...data.map(item => item[key]));
+        const max = Math.max(...data.map(item => item[key]));
+
+        return { avg, min, max };
+    };
+
     const filteredData = filterDataByPeriod(climateData);
 
     const mostRecentData = climateData[climateData.length - 1];
+
+    const temperatureStats = calculateStats(filteredData, 'temperature');
+    const humidityStats = calculateStats(filteredData, 'humidity');
+    const carbonStats = calculateStats(filteredData, 'carbon');
 
     const indexOfLastItem = currentPage * itemsPerPage;
     const indexOfFirstItem = indexOfLastItem - itemsPerPage;
@@ -108,7 +123,7 @@ const ClimateDataPage = () => {
         <div className='climate-data-container'>
             {mostRecentData && (
                 <div className="recent-data">
-                    <h2>Nejnovější data</h2>
+                    <h2>Nejnovější data:</h2>
                     <h3>{formatDate(mostRecentData.datetime)}</h3>
                     <div className='recent-data-box'>
                         <img className='data-icon' alt='ikonka co2' src={carbon_icon}/>
@@ -134,6 +149,16 @@ const ClimateDataPage = () => {
                     <option value="month">Poslední měsíc</option>
                 </select>
             </div>
+
+            <div className="stats">
+                <p><strong>CO₂:</strong> průměr: {carbonStats.avg} ppm, min: {carbonStats.min} ppm,
+                    max: {carbonStats.max} ppm</p>
+                <p><strong>Teplota:</strong> průměr: {temperatureStats.avg}°C, min: {temperatureStats.min}°C,
+                    max: {temperatureStats.max}°C</p>
+                <p><strong>Vlhkost:</strong> průměr: {humidityStats.avg}%, min: {humidityStats.min}%,
+                    max: {humidityStats.max}%</p>
+            </div>
+
             <ResponsiveContainer width="85%" height={400}>
                 <LineChart data={filteredData}>
                     <CartesianGrid strokeDasharray="3 3"/>

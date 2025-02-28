@@ -70,7 +70,7 @@ table {
 .period-selection {
     display: flex;
     justify-content: center;
-    margin: 32px 28px 16px 28px;
+    margin: 32px 28px 6px 28px;
     font-size: 0.9rem;
     padding: 12px 12px 8px;
     background-color: rgba(33, 57, 61, 0.71);
@@ -90,4 +90,10 @@ table {
 
 option:hover {
     background-color: #234548;
+}
+
+.stats {
+    text-align: center;
+    color: #ccc;
+    font-size: 14px;
 }
