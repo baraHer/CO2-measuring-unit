@@ -19,7 +19,7 @@ db.connect((err) => {
 });
 
 const brokerUrl = config.mqtt.brokerUrl;
-const port = 8883;
+const port = config.mqtt.port;
 
 const mqttClient = mqtt.connect(brokerUrl, {
     port: port,
@@ -27,7 +27,7 @@ const mqttClient = mqtt.connect(brokerUrl, {
     password: config.mqtt.password,
 });
 mqttClient.on('connect', () => {
-    console.log('Connected to MQTT broker at HiveMQ Cloud');
+    console.log('Connected to Mosquitto MQTT');
     mqttClient.subscribe('home/sensor/data', (err) => {
         if (err) {
             console.error('Failed to subscribe to topic:', err);
