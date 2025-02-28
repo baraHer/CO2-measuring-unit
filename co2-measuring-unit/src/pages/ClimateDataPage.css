@@ -66,3 +66,28 @@ table {
     color: #ccc;
     font-size: 14px;
 }
+
+.period-selection {
+    display: flex;
+    justify-content: center;
+    margin: 32px 28px 16px 28px;
+    font-size: 0.9rem;
+    padding: 12px 12px 8px;
+    background-color: rgba(33, 57, 61, 0.71);
+    border-radius: 12px;
+}
+
+.period-selection select {
+    margin-left: 10px;
+    margin-top: -4px;
+    padding: 6px;
+    font-size: 0.80rem;
+    border: 1px solid #ECECEA;
+    border-radius: 4px;
+    background-color: #213A3D;
+    color: #ECECEA;
+}
+
+option:hover {
+    background-color: #234548;
+}

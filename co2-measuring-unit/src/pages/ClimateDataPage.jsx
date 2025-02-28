@@ -23,6 +23,7 @@ const ClimateDataPage = () => {
     const [climateData, setClimateData] = useState([]);
     const [currentPage, setCurrentPage] = useState(1);
     const [itemsPerPage] = useState(20);
+    const [selectedPeriod, setSelectedPeriod] = useState('all');
 
     const formatDate = (dataString) => {
         return new Date(dataString).toLocaleString('cs-CZ', {
@@ -54,16 +55,45 @@ const ClimateDataPage = () => {
             .catch((error) => console.error("Error fetching data:", error));
     }, []);
 
+    const handlePeriodChange = (event) => {
+        setCurrentPage(1); // Reset to first page whenever the period changes
+        setSelectedPeriod(event.target.value);
+    };
+
+    const filterDataByPeriod = (data) => {
+        const now = new Date();
+        let filteredData = data;
+
+        switch (selectedPeriod) {
+            case 'hour':
+                filteredData = data.filter(item => new Date(item.datetime) >= new Date(now - 60 * 60 * 1000));
+                break;
+            case '24h':
+                filteredData = data.filter(item => new Date(item.datetime) >= new Date(now - 24 * 60 * 60 * 1000));
+                break;
+            case 'week':
+                filteredData = data.filter(item => new Date(item.datetime) >= new Date(now - 7 * 24 * 60 * 60 * 1000));
+                break;
+            case 'month':
+                filteredData = data.filter(item => new Date(item.datetime) >= new Date(now - 30 * 24 * 60 * 60 * 1000));
+                break;
+            default:
+                break;
+        }
+
+        return filteredData;
+    };
+
+    const filteredData = filterDataByPeriod(climateData);
+
     const mostRecentData = climateData[climateData.length - 1];
 
-    // Calculate the page data
     const indexOfLastItem = currentPage * itemsPerPage;
     const indexOfFirstItem = indexOfLastItem - itemsPerPage;
-    const currentData = climateData.slice(indexOfFirstItem, indexOfLastItem);
+    const currentData = filteredData.slice(indexOfFirstItem, indexOfLastItem);
 
-    // Handle page change
     const handleNextPage = () => {
-        if (indexOfLastItem < climateData.length) {
+        if (indexOfLastItem < filteredData.length) {
             setCurrentPage(currentPage + 1);
         }
     };
@@ -93,17 +123,31 @@ const ClimateDataPage = () => {
                     </div>
                 </div>
             )}
+
+            <div className="period-selection">
+                <label htmlFor="period">Vyberte časové období: </label>
+                <select id="period" value={selectedPeriod} onChange={handlePeriodChange}>
+                    <option value="all">Celé období měření</option>
+                    <option value="hour">Poslední hodina</option>
+                    <option value="24h">Posledních 24 hodin</option>
+                    <option value="week">Poslední týden</option>
+                    <option value="month">Poslední měsíc</option>
+                </select>
+            </div>
             <ResponsiveContainer width="85%" height={400}>
-                <LineChart data={climateData}>
+                <LineChart data={filteredData}>
                     <CartesianGrid strokeDasharray="3 3"/>
                     <XAxis dataKey="datetime" textAnchor="end" stroke="#CCCCCC" tickFormatter={formatDateNoWeekday}>
-                        <Label value="Datum a čas" offset={-10} position="insideBottomRight" style={{ fill: '#CCCCCC', fontSize: '12px', fontWeight: 'bold' }} />
+                        <Label value="Datum a čas" offset={-10} position="insideBottomRight"
+                               style={{fill: '#CCCCCC', fontSize: '12px', fontWeight: 'bold'}}/>
                     </XAxis>
                     <YAxis yAxisId="left" domain={[0, 2000]} stroke="#CCCCCC">
-                        <Label value="CO₂ (ppm)" angle={-90} dx={-30} position="center" style={{ fill: '#CCCCCC', fontSize: '12px', fontWeight: 'bold' }} />
+                        <Label value="CO₂ (ppm)" angle={-90} dx={-30} position="center"
+                               style={{fill: '#CCCCCC', fontSize: '12px', fontWeight: 'bold'}}/>
                     </YAxis>
                     <YAxis yAxisId="right" orientation="right" domain={[0, 100]} stroke="#CCCCCC">
-                        <Label value="Teplota (°C) / Vlhkost (%)" angle={270} position="center" dx={20} style={{ fill: '#CCCCCC', fontSize: '12px', fontWeight: 'bold' }} />
+                        <Label value="Teplota (°C) / Vlhkost (%)" angle={270} position="center" dx={20}
+                               style={{fill: '#CCCCCC', fontSize: '12px', fontWeight: 'bold'}}/>
                     </YAxis>
                     <Tooltip contentStyle={{
                         backgroundColor: "#222",
@@ -155,10 +199,10 @@ const ClimateDataPage = () => {
                 </table>
                 <div className="pagination">
                     <button onClick={handlePrevPage} disabled={currentPage === 1}>{"<"}</button>
-                    <button onClick={handleNextPage} disabled={indexOfLastItem >= climateData.length}>{">"}</button>
+                    <button onClick={handleNextPage} disabled={indexOfLastItem >= filteredData.length}>{">"}</button>
                 </div>
                 <div className="pagination-info">
-                    {indexOfFirstItem + 1}-{Math.min(indexOfLastItem, climateData.length)} z {climateData.length} záznamů
+                    {indexOfFirstItem + 1}-{Math.min(indexOfLastItem, filteredData.length)} ze {filteredData.length} záznamů
                 </div>
             </div>
         </div>
