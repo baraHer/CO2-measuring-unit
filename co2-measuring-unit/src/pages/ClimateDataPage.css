@@ -36,3 +36,33 @@
 table {
     padding: 28px 0;
 }
+
+.pagination {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.pagination button {
+    background-color: rgba(13, 21, 24, 0.71);
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    margin: 0 5px;
+    cursor: pointer;
+    font-size: 16px;
+    border-radius: 5px;
+}
+
+.pagination button:disabled {
+    color: #9a9a9a;
+    background-color: #233a3b;
+    cursor: not-allowed;
+}
+
+.pagination-info {
+    text-align: center;
+    margin-top: 10px;
+    color: #ccc;
+    font-size: 14px;
+}

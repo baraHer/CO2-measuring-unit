@@ -21,6 +21,9 @@ import carbon_icon from '../img/weather-icons/carbon.svg';
 
 const ClimateDataPage = () => {
     const [climateData, setClimateData] = useState([]);
+    const [currentPage, setCurrentPage] = useState(1);
+    const [itemsPerPage] = useState(20);
+
     const formatDate = (dataString) => {
         return new Date(dataString).toLocaleString('cs-CZ', {
             weekday: 'long',
@@ -53,6 +56,24 @@ const ClimateDataPage = () => {
 
     const mostRecentData = climateData[climateData.length - 1];
 
+    // Calculate the page data
+    const indexOfLastItem = currentPage * itemsPerPage;
+    const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+    const currentData = climateData.slice(indexOfFirstItem, indexOfLastItem);
+
+    // Handle page change
+    const handleNextPage = () => {
+        if (indexOfLastItem < climateData.length) {
+            setCurrentPage(currentPage + 1);
+        }
+    };
+
+    const handlePrevPage = () => {
+        if (currentPage > 1) {
+            setCurrentPage(currentPage - 1);
+        }
+    };
+
     return (
         <div className='climate-data-container'>
             {mostRecentData && (
@@ -73,7 +94,7 @@ const ClimateDataPage = () => {
                 </div>
             )}
             <ResponsiveContainer width="85%" height={400}>
-            <LineChart data={climateData}>
+                <LineChart data={climateData}>
                     <CartesianGrid strokeDasharray="3 3"/>
                     <XAxis dataKey="datetime" textAnchor="end" stroke="#CCCCCC" tickFormatter={formatDateNoWeekday}>
                         <Label value="Datum a čas" offset={-10} position="insideBottomRight" style={{ fill: '#CCCCCC', fontSize: '12px', fontWeight: 'bold' }} />
@@ -112,17 +133,17 @@ const ClimateDataPage = () => {
                             <p className='label-text'>Koncentrace (ppm)</p>
                         </th>
                         <th>
-                        <img className='data-icon label-icon' alt='ikonka teploty' src={temp_c_icon}/>
+                            <img className='data-icon label-icon' alt='ikonka teploty' src={temp_c_icon}/>
                             <p className='label-text'>Teplota (°C)</p>
                         </th>
                         <th>
-                        <img className='data-icon label-icon' alt='ikonka vlhkosti' src={humidity_icon}/>
+                            <img className='data-icon label-icon' alt='ikonka vlhkosti' src={humidity_icon}/>
                             <p className='label-text'>Vlhkost (%)</p>
                         </th>
                     </tr>
                     </thead>
                     <tbody>
-                    {climateData.slice().reverse().map((data, index) => (
+                    {currentData.slice().reverse().map((data, index) => (
                         <tr key={index}>
                             <td>{formatDate(data.datetime)}</td>
                             <td>{data.carbon}</td>
@@ -132,6 +153,13 @@ const ClimateDataPage = () => {
                     ))}
                     </tbody>
                 </table>
+                <div className="pagination">
+                    <button onClick={handlePrevPage} disabled={currentPage === 1}>{"<"}</button>
+                    <button onClick={handleNextPage} disabled={indexOfLastItem >= climateData.length}>{">"}</button>
+                </div>
+                <div className="pagination-info">
+                    {indexOfFirstItem + 1}-{Math.min(indexOfLastItem, climateData.length)} z {climateData.length} záznamů
+                </div>
             </div>
         </div>
     );
