@@ -46,9 +46,9 @@ mqttClient.on('connect', () => {
 mqttClient.on('message', (topic, message) => {
     const data = JSON.parse(message.toString());
     console.log('Received data:', data);
-    const { co2, temperature, humidity } = data;
-    const query = 'INSERT INTO climate_data (carbon, temperature, humidity) VALUES (?, ?, ?)';
-    db.query(query, [co2, temperature, humidity], (err) => {
+    const { datetime, co2, temperature, humidity } = data;
+    const query = 'INSERT INTO climate_data (datetime, carbon, temperature, humidity) VALUES (?, ?, ?, ?)';
+    db.query(query, [datetime, co2, temperature, humidity], (err) => {
         if (err) {
             console.error('Error saving data to the database:', err);
         } else {
