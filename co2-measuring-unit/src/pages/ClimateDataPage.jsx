@@ -111,6 +111,7 @@ const ClimateDataPage = () => {
     };
 
     const filteredData = filterDataByPeriod(climateData);
+    const reversedFilteredData = [...filteredData].reverse(); // Reverse the data for the graph
 
     const mostRecentData = climateData[0]; // The most recent data is the first item in the reversed array
 
@@ -178,7 +179,7 @@ const ClimateDataPage = () => {
             </div>
 
             <ResponsiveContainer width="85%" height={400}>
-                <LineChart data={filteredData}>
+                <LineChart data={reversedFilteredData}>
                     <CartesianGrid strokeDasharray="3 3"/>
                     <XAxis dataKey="datetime" textAnchor="end" stroke="#CCCCCC" tickFormatter={formatDateNoWeekday}
                            tick={{ fontSize: 12, dy: 6 }}>
