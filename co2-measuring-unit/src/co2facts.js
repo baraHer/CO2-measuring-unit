@@ -11,7 +11,7 @@ const allFacts = [
     },
     {
         title: 'Vysoké hodnoty CO₂ pociťujeme sami na svém těle.',
-        text: 'Koncentrace CO₂ v interiéru by měla být pod 800 ppm, což je ideální hladina pro koncentraci a pohodlí. Hodnoty mezi 1000 a 2000 ppm mohou způsobovat únavu, ospalost a zhoršenou produktivitu. Při více než 2000 ppm už hrozí zdravotní komplikace, jako jsou bolesti hlavy nebo závratě. Vyšší hodnoty navíc ukazují na nedostatečné větrání, což může znamenat i přítomnost dalších škodlivin ve vzduchu.',
+        text: 'Koncentrace CO₂ v interiéru by měla být pod 800 ppm, což je ideální hladina pro koncentraci a pohodlí. Hodnoty mezi 1000 a 2000 ppm mohou způsobovat únavu, ospalost a zhoršenou produktivitu. Při více než 2000 ppm už hrozí zdravotní komplikace, jako jsou bolesti hlavy nebo závratě. Vyšší hodnoty navíc poukazují na nedostatečné větrání, což může způsobovat přítomnost dalších škodlivin ve vzduchu.',
         image: imgEffects,
         description: 'efekt na člověka'
     },
