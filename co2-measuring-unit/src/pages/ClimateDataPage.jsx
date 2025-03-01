@@ -27,7 +27,7 @@ const ClimateDataPage = () => {
     const fetchData = () => {
         axios
             .get("http://localhost:5000/climate_data")
-            .then((response) => setClimateData(response.data))
+            .then((response) => setClimateData(response.data.reverse())) // Reverse the data once when fetched
             .catch((error) => console.error("Error fetching data:", error));
     };
 
@@ -49,9 +49,8 @@ const ClimateDataPage = () => {
         const month = (formattedDate.getMonth() + 1).toString().padStart(2, '0');
         const hour = formattedDate.getHours().toString().padStart(2, '0');
         const minute = formattedDate.getMinutes().toString().padStart(2, '0');
-        const second = formattedDate.getSeconds().toString().padStart(2, '0');
 
-        return `${day}.${month} ${hour}:${minute}:${second}`;
+        return `${day}.${month} ${hour}:${minute}`;
     };
 
     useEffect(() => {
@@ -113,7 +112,7 @@ const ClimateDataPage = () => {
 
     const filteredData = filterDataByPeriod(climateData);
 
-    const mostRecentData = climateData[climateData.length - 1];
+    const mostRecentData = climateData[0]; // The most recent data is the first item in the reversed array
 
     const temperatureStats = calculateStats(filteredData, 'temperature');
     const humidityStats = calculateStats(filteredData, 'humidity');
@@ -231,7 +230,7 @@ const ClimateDataPage = () => {
                     </tr>
                     </thead>
                     <tbody>
-                    {currentData.slice().reverse().map((data, index) => (
+                    {currentData.map((data, index) => (
                         <tr key={index}>
                             <td>{formatDate(data.datetime)}</td>
                             <td>{data.carbon}</td>
