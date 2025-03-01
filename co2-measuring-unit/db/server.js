@@ -3,10 +3,15 @@ const mysql = require("mysql2");
 const cors = require("cors");
 const mqtt = require('mqtt');
 const config = require('./config');
+const http = require('http');
+const { Server } = require("socket.io");
 
 const app = express();
 app.use(cors());
 app.use(express.json());
+
+const server = http.createServer(app);
+const io = new Server(server);
 
 const db = mysql.createConnection(config.db);
 
@@ -26,6 +31,7 @@ const mqttClient = mqtt.connect(brokerUrl, {
     username: config.mqtt.username,
     password: config.mqtt.password,
 });
+
 mqttClient.on('connect', () => {
     console.log('Connected to Mosquitto MQTT');
     mqttClient.subscribe('home/sensor/data', (err) => {
@@ -36,6 +42,7 @@ mqttClient.on('connect', () => {
         }
     });
 });
+
 mqttClient.on('message', (topic, message) => {
     const data = JSON.parse(message.toString());
     console.log('Received data:', data);
@@ -46,9 +53,11 @@ mqttClient.on('message', (topic, message) => {
             console.error('Error saving data to the database:', err);
         } else {
             console.log('Data saved to the database');
+            io.emit('new-data', { datetime: new Date(), carbon: co2, temperature, humidity });
         }
     });
 });
+
 app.get('/climate_data', (req, res) => {
     db.query('SELECT * FROM climate_data', (err, results) => {
         if (err) {
@@ -60,6 +69,6 @@ app.get('/climate_data', (req, res) => {
 });
 
 const PORT = 5000;
-app.listen(PORT, () => {
+server.listen(PORT, () => {
     console.log(`Server running on port ${PORT}`);
 });

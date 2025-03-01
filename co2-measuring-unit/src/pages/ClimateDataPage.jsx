@@ -18,12 +18,18 @@ import humidity_icon from '../img/weather-icons/humidity.svg';
 import temp_c_icon from '../img/weather-icons/temp_c.svg';
 import carbon_icon from '../img/weather-icons/carbon.svg';
 
-
 const ClimateDataPage = () => {
     const [climateData, setClimateData] = useState([]);
     const [currentPage, setCurrentPage] = useState(1);
     const [itemsPerPage] = useState(20);
     const [selectedPeriod, setSelectedPeriod] = useState('all');
+
+    const fetchData = () => {
+        axios
+            .get("http://localhost:5000/climate_data")
+            .then((response) => setClimateData(response.data))
+            .catch((error) => console.error("Error fetching data:", error));
+    };
 
     const formatDate = (dataString) => {
         return new Date(dataString).toLocaleString('cs-CZ', {
@@ -49,10 +55,10 @@ const ClimateDataPage = () => {
     };
 
     useEffect(() => {
-        axios
-            .get("http://localhost:5000/climate_data")
-            .then((response) => setClimateData(response.data))
-            .catch((error) => console.error("Error fetching data:", error));
+        fetchData();
+        const interval = setInterval(fetchData, 5000);
+
+        return () => clearInterval(interval);
     }, []);
 
     const getColorBasedOnValue = (value, thresholds) => {
@@ -66,7 +72,7 @@ const ClimateDataPage = () => {
     };
 
     const handlePeriodChange = (event) => {
-        setCurrentPage(1); // Reset to first page whenever the period changes
+        setCurrentPage(1);
         setSelectedPeriod(event.target.value);
     };
 
