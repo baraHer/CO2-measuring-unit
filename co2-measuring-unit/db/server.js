@@ -21,7 +21,6 @@ const tcpServer = net.createServer((socket) => {
             const parsedData = JSON.parse(data.toString());
             console.log('Received data:', parsedData);
 
-            // Get current datetime in 'YYYY-MM-DD HH:MM:SS' format
             const now = new Date();
             const formattedDateTime = now.toLocaleString('sv-SE', { timeZone: 'Europe/Prague' }).replace('T', ' ').substring(0, 19);
 
@@ -34,7 +33,7 @@ const tcpServer = net.createServer((socket) => {
                     console.error('Error saving data to the database:', err);
                 } else {
                     console.log('Data saved to the database');
-                    io.emit('new-data', { datetime: new Date(), carbon: co2, temperature, humidity });
+                    io.emit('new-data', { datetime: formattedDateTime, carbon: co2, temperature, humidity });
                 }
             });
         } catch (error) {
