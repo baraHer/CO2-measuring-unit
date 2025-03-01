@@ -1,7 +1,6 @@
 const express = require("express");
 const cors = require("cors");
-const mqtt = require('mqtt');
-const config = require('./config');
+const net = require('net');
 const http = require('http');
 const { Server } = require("socket.io");
 
@@ -14,39 +13,47 @@ const io = new Server(server);
 
 const db = require('./initDatabase');
 
-const brokerUrl = config.mqtt.brokerUrl;
-const port = config.mqtt.port;
+const tcpServer = net.createServer((socket) => {
+    console.log('Client connected');
 
-const mqttClient = mqtt.connect(brokerUrl, {
-    port: port,
-    username: config.mqtt.username,
-    password: config.mqtt.password,
-});
+    socket.on('data', (data) => {
+        try {
+            const parsedData = JSON.parse(data.toString());
+            console.log('Received data:', parsedData);
 
-mqttClient.on('connect', () => {
-    console.log('Connected to Mosquitto MQTT');
-    mqttClient.subscribe('home/sensor/data', (err) => {
-        if (err) {
-            console.error('Failed to subscribe to topic:', err);
-        } else {
-            console.log('Subscribed to home/sensor/data');
+            // Get current datetime in 'YYYY-MM-DD HH:MM:SS' format
+            const now = new Date();
+            const formattedDateTime = now.toLocaleString('sv-SE', { timeZone: 'Europe/Prague' }).replace('T', ' ').substring(0, 19);
+
+            const { co2, temperature, humidity } = parsedData;
+
+            // Insert data into the database
+            const query = 'INSERT INTO climate_data (datetime, carbon, temperature, humidity) VALUES (?, ?, ?, ?)';
+            db.run(query, [formattedDateTime, co2, temperature, humidity], (err) => {
+                if (err) {
+                    console.error('Error saving data to the database:', err);
+                } else {
+                    console.log('Data saved to the database');
+                    io.emit('new-data', { datetime: new Date(), carbon: co2, temperature, humidity });
+                }
+            });
+        } catch (error) {
+            console.error('Error parsing data:', error);
         }
+    });
+
+    socket.on('end', () => {
+        console.log('Client disconnected');
+    });
+
+    socket.on('error', (err) => {
+        console.error('Error:', err.message);
     });
 });
 
-mqttClient.on('message', (topic, message) => {
-    const data = JSON.parse(message.toString());
-    console.log('Received data:', data);
-    const { datetime, co2, temperature, humidity } = data;
-    const query = 'INSERT INTO climate_data (datetime, carbon, temperature, humidity) VALUES (?, ?, ?, ?)';
-    db.run(query, [datetime, co2, temperature, humidity], (err) => {
-        if (err) {
-            console.error('Error saving data to the database:', err);
-        } else {
-            console.log('Data saved to the database');
-            io.emit('new-data', { datetime: new Date(), carbon: co2, temperature, humidity });
-        }
-    });
+const tcpPort = 1883;
+tcpServer.listen(tcpPort, () => {
+    console.log(`TCP Server listening on port ${tcpPort}`);
 });
 
 app.get('/climate_data', (req, res) => {

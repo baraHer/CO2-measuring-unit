@@ -4,6 +4,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "aedes": "^0.51.3",
     "axios": "^1.7.9",
     "cra-template": "1.2.0",
     "http": "^0.0.1-security",
@@ -15,7 +16,8 @@
     "react-scripts": "5.0.1",
     "recharts": "^2.15.1",
     "socket.io": "^4.8.1",
-    "sqlite3": "^5.1.7"
+    "sqlite3": "^5.1.7",
+    "ws": "^8.18.1"
   },
   "scripts": {
     "start": "react-scripts start",
