@@ -1,5 +1,4 @@
 const express = require("express");
-const mysql = require("mysql2");
 const cors = require("cors");
 const mqtt = require('mqtt');
 const config = require('./config');
@@ -13,15 +12,7 @@ app.use(express.json());
 const server = http.createServer(app);
 const io = new Server(server);
 
-const db = mysql.createConnection(config.db);
-
-db.connect((err) => {
-    if (err) {
-        console.error("Database connection failed: ", err);
-    } else {
-        console.log("Connected to MariaDB!");
-    }
-});
+const db = require('./initDatabase');
 
 const brokerUrl = config.mqtt.brokerUrl;
 const port = config.mqtt.port;
@@ -48,7 +39,7 @@ mqttClient.on('message', (topic, message) => {
     console.log('Received data:', data);
     const { datetime, co2, temperature, humidity } = data;
     const query = 'INSERT INTO climate_data (datetime, carbon, temperature, humidity) VALUES (?, ?, ?, ?)';
-    db.query(query, [datetime, co2, temperature, humidity], (err) => {
+    db.run(query, [datetime, co2, temperature, humidity], (err) => {
         if (err) {
             console.error('Error saving data to the database:', err);
         } else {
@@ -59,7 +50,7 @@ mqttClient.on('message', (topic, message) => {
 });
 
 app.get('/climate_data', (req, res) => {
-    db.query('SELECT * FROM climate_data', (err, results) => {
+    db.all('SELECT * FROM climate_data', (err, results) => {
         if (err) {
             res.status(500).json({ error: err.message });
         } else {

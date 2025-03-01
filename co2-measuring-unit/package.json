@@ -6,6 +6,7 @@
   "dependencies": {
     "axios": "^1.7.9",
     "cra-template": "1.2.0",
+    "http": "^0.0.1-security",
     "mqtt": "^5.10.3",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
@@ -14,7 +15,7 @@
     "react-scripts": "5.0.1",
     "recharts": "^2.15.1",
     "socket.io": "^4.8.1",
-    "http": "^0.0.1-security"
+    "sqlite3": "^5.1.7"
   },
   "scripts": {
     "start": "react-scripts start",
