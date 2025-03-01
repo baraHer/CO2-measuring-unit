@@ -180,7 +180,8 @@ const ClimateDataPage = () => {
             <ResponsiveContainer width="85%" height={400}>
                 <LineChart data={filteredData}>
                     <CartesianGrid strokeDasharray="3 3"/>
-                    <XAxis dataKey="datetime" textAnchor="end" stroke="#CCCCCC" tickFormatter={formatDateNoWeekday}>
+                    <XAxis dataKey="datetime" textAnchor="end" stroke="#CCCCCC" tickFormatter={formatDateNoWeekday}
+                           tick={{ fontSize: 12, dy: 6 }}>
                         <Label value="Datum a čas" offset={-10} position="insideBottomRight"
                                style={{fill: '#CCCCCC', fontSize: '12px', fontWeight: 'bold'}}/>
                     </XAxis>
@@ -200,7 +201,7 @@ const ClimateDataPage = () => {
                     }}
                              labelStyle={{fontWeight: "bold", color: "#cccccc"}}
                              labelFormatter={(value) => formatDateNoWeekday(value)}/>
-                    <Legend/>
+                    <Legend wrapperStyle={{ paddingTop: "10px" }}/>
 
                     <Line yAxisId="left" dataKey="carbon" stroke="#FF5733" name="CO₂ (ppm)"/>
 
