@@ -104,10 +104,25 @@ void setup() {
     Serial.println();
 }
 
+void reconnect() {
+  String status = "";
+  sendATCommand("AT+CIPSTATUS", "STATUS:", 5000);
+  status = Serial1.readString();
+
+  if (status.indexOf("STATUS:4") != -1) {
+    Serial.println("Wi-Fi is disconnected. Reconnecting...");
+    sendATCommand("AT+CWJAP=\"" WIFI_SSID "\",\"" WIFI_PASSWORD "\"", "OK", 10000);
+    sendATCommand("AT+CIPSTART=\"TCP\",\"" SERVER_IP "\"," + String(SERVER_PORT), "CONNECT", 5000);
+  } else {
+  }
+}
+
 void loop() {
     uint16_t co2Concentration = 0;
     float temperature = 0.0;
     float relativeHumidity = 0.0;
+
+    reconnect();
     error = sensor.wakeUp();
     if (error != NO_ERROR) {
         Serial.print("Error trying to execute wakeUp(): ");
